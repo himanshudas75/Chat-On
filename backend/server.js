@@ -1,6 +1,6 @@
-const express=require("express");
 const dotenv=require("dotenv");
-const connectDB = require("./config/db");
+dotenv.config();
+const express=require("express");
 const colors = require("colors");
 const userRoutes = require('./routes/userRoutes');
 const chatRoutes = require('./routes/chatRoutes');
@@ -11,8 +11,8 @@ const path= require('path');
 const bodyParser= require('body-parser');
 
 const app=express();
-dotenv.config();
 
+const connectDB = require("./config/db");
 connectDB();  // This should be after dotenv.config();
 
 app.use(express.json()); // to accept JSON Data
@@ -45,7 +45,7 @@ app.use("/api/message", messageRoutes);
 
 //error handling for invalid routes
 app.use(notFound);
-// app.use(errorHandler);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
